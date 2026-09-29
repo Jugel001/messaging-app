@@ -1,0 +1,11 @@
+<section class="message-list" role="log" aria-label="Messages" aria-live="polite" aria-relevant="additions">
+  @for (message of messages(); track message.id) {
+    <div class="message" [class.my-message]="message.senderId === currentUserId()">
+      <strong>{{ message.senderId === currentUserId() ? 'You' : recipientName() }}</strong>
+      <p>{{ message.text }}</p>
+      <time [attr.datetime]="message.createdAt">{{ message.createdAt | date:'MMM d, HH:mm' }}</time>
+    </div>
+  } @empty {
+    <p class="empty">No messages yet. Say hello!</p>
+  }
+</section>

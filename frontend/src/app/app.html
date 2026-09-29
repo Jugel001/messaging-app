@@ -1,0 +1,30 @@
+<main class="messaging-app">
+  @if (!currentUser) {
+    <section class="user-picker">
+      <h1>Messaging</h1>
+      <p>Choose a demo user to start chatting.</p>
+      @for (user of users; track user.id) {
+        <button [disabled]="loading" (click)="chooseUser(user)">{{ user.displayName }}</button>
+      }
+      <p class="note">No passwords in this demo. Open another window and choose the other user.</p>
+      @if (loading) { <p role="status">Loading users…</p> }
+      @if (error) { <p class="error" role="alert">{{ error }} <button (click)="loadUsers()">Retry</button></p> }
+    </section>
+  } @else {
+    <section class="chat-panel">
+      <header>
+        <div><h1>{{ selectedConversation?.participantName || 'Conversation' }}</h1>
+          <p>You are {{ currentUser.displayName }} · <span role="status">{{ conversationWebSocket.status() }}</span></p>
+        </div>
+        <button [disabled]="sending" (click)="switchUser()">Switch user</button>
+      </header>
+      <div class="history-note">Latest 100 messages <button [disabled]="loading" (click)="loadConversations()">{{ loading ? 'Loading…' : 'Refresh' }}</button></div>
+      @if (error) { <p class="error" role="alert">{{ error }}</p> }
+      @if (selectedConversation; as conversation) {
+        <app-message-list [messages]="conversation.messages" [currentUserId]="currentUser.id" [recipientName]="conversation.participantName" />
+        @if (sendError) { <p class="error" role="alert">{{ sendError }}</p> }
+        <app-message-input [sending]="sending" (messageSent)="sendMessage($event)" />
+      }
+    </section>
+  }
+</main>

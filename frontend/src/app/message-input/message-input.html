@@ -1,0 +1,5 @@
+<section class="message-form">
+  <input #messageInput type="text" aria-label="Message" placeholder="Write a message"
+    maxlength="2000" [disabled]="sending()" (keydown.enter)="send($event)">
+  <button type="button" [disabled]="sending()" (click)="send()">{{ sending() ? 'Sending…' : 'Send' }}</button>
+</section>

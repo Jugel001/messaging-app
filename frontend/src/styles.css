@@ -1,0 +1,7 @@
+:root { color-scheme: light; font-family: Arial, sans-serif; color: #222; background: #f6f7f8; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+button, input { font: inherit; }
+button { cursor: pointer; padding: 8px 12px; border: 1px solid #bbb; border-radius: 6px; background: #f8f8f8; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+button:focus-visible, input:focus-visible { outline: 2px solid #287340; outline-offset: 2px; }
